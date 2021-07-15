@@ -71,13 +71,17 @@ func (f *FileDrive) readEntries() {
 		key := jarKey(cookie.Domain, nil)
 
 		e := entry{
-			Name: cookie.Name,
-			Value: cookie.Value,
-			Domain: cookie.Domain,
-			Path: cookie.Path,
+			Name:     cookie.Name,
+			Value:    cookie.Value,
+			Domain:   cookie.Domain,
+			Path:     cookie.Path,
 			HttpOnly: cookie.HttpOnly,
-			Secure: cookie.Secure,
-			Expires: cookie.Expires,
+			Secure:   cookie.Secure,
+			Expires:  cookie.Expires,
+		}
+
+		if e.Domain[0] == '.' {
+			e.Domain = e.Domain[1:]
 		}
 
 		if _, ok := f.entries[key]; !ok {
